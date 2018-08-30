@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container" style="max-width: 640px; margin-top: 1rem;">
+    <h1>ピンとシャフトの最適径計算</h1>
     <div style="margin-bottom: 2rem;">
       <input-table :pin="pin" :shaft="shaft" :housing="housing" @update="onUpdate" />
       <div>
