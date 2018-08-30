@@ -55,9 +55,9 @@ export default {
   components: { InputTable, OutputTable },
   data() {
     return {
-      pin: new Component("ピン", 3, 300),
-      shaft: new Component("シャフト", 7, 1200),
-      housing: new Component("ハウジング", 11, 1200),
+      pin: new Component("ピン", 3, 245),
+      shaft: new Component("シャフト", 8, 245),
+      housing: new Component("ハウジング", 12, 245),
       allowableShearStress: 0.8,
     };
   },
