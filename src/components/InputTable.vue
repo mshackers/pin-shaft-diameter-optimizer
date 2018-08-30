@@ -5,7 +5,7 @@
         <tr>
             <td></td>
             <th>外径</th>
-            <th>応力</th>
+            <th>許容引張応力</th>
         </tr>
         </thead>
         <tbody>
