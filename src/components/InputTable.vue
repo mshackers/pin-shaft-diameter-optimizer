@@ -1,9 +1,20 @@
+<style scoped>
+table {
+  width: 100%;
+  max-width: 350px;
+}
+th {
+  font-size: 90%;
+}
+</style>
+
+
 <template>
 <div>
-    <table class="table table-striped table-bordered table-hover table-sm">
+    <table class="input-table table table-striped table-bordered table-hover table-sm">
         <thead>
         <tr>
-            <td></td>
+            <td style="min-width: 100px"></td>
             <th>外径</th>
             <th>許容引張応力</th>
         </tr>

@@ -1,3 +1,8 @@
+<style scoped>
+th {
+  font-size: 90%;
+}
+</style>
 <template>
     <tr>
         <th>{{result.name}}</th>

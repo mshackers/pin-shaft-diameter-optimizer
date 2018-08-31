@@ -1,3 +1,9 @@
+<style scoped>
+th {
+  font-size: 90%;
+}
+</style>
+
 <template>
     <tr>
         <th>{{component.name}}</th>

@@ -1,3 +1,15 @@
+<style scoped>
+table {
+  width: 100%;
+  max-width: 500px;
+  min-width: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+th {
+  font-size: 90%;
+}
+</style>
 <template>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
