@@ -14,7 +14,7 @@ th {
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
         <tr>
-            <th>壊れる部分</th>
+            <th>各部分</th>
             <th>最大荷重</th>
             <th>最大トルク</th>
         </tr>
