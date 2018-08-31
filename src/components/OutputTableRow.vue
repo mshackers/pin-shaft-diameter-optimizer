@@ -2,10 +2,13 @@
 th {
   font-size: 90%;
 }
+code {
+  font-size: 1.2rem;
+}
 </style>
 <template>
     <tr>
-        <th>{{result.name}}</th>
+        <th><code>{{result.label}}</code> : {{result.name}}</th>
         <td :class="{ 'table-danger': result.n === minN }">{{Math.round(result.n)}}</td>
         <td :class="{ 'table-danger': result.nMm === minNMm }">{{Math.round(result.nMm)}}</td>
     </tr>

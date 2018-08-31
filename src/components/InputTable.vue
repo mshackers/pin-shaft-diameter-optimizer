@@ -6,6 +6,9 @@ table {
 th {
   font-size: 90%;
 }
+code {
+  font-size: 1.2rem;
+}
 </style>
 
 
@@ -14,9 +17,9 @@ th {
     <table class="input-table table table-striped table-bordered table-hover table-sm">
         <thead>
         <tr>
-            <td style="min-width: 100px"></td>
-            <th>外径</th>
-            <th>許容引張応力</th>
+            <td style="width: 100px;"></td>
+            <th><code>D</code> : 外径</th>
+            <th><code>&sigma;</code> : 許容引張応力</th>
         </tr>
         </thead>
         <tbody>

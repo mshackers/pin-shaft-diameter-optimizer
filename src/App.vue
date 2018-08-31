@@ -18,7 +18,7 @@ h1 {
 
 .input-container {
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .image {
@@ -103,7 +103,8 @@ class Result {
   n;
   nMm;
 
-  constructor(name) {
+  constructor(label, name) {
+    this.label = label;
     this.name = name;
   }
 }
@@ -122,7 +123,7 @@ export default {
   computed: {
     a() {
       const radius = this.shaft.radius;
-      const result = new Result("a: シャフト断面");
+      const result = new Result("a", "シャフト断面");
       result.archH = radius - this.pin.radius;
       result.rad = 2 * Math.acos(1 - result.archH / radius);
       result.archArea =
@@ -152,7 +153,7 @@ export default {
     },
     b() {
       const radius = this.housing.radius;
-      const result = new Result("b: ハウジング断面");
+      const result = new Result("b", "ハウジング断面");
       result.archH = radius - this.pin.radius;
       result.rad = 2 * Math.acos(1 - result.archH / radius);
       result.archArea =
@@ -204,7 +205,7 @@ export default {
       return result;
     },
     c() {
-      const result = new Result("c: ピンとシャフトの接触 ピン");
+      const result = new Result("c", "ピンとシャフトの接触 ピン");
       result.area = this.pin.diameter * this.shaft.diameter;
       result.archShearStrength =
         (this.pin.diameter * this.pin.stress * this.shaft.radius ** 2) / 3;
@@ -213,7 +214,7 @@ export default {
       return result;
     },
     d() {
-      const result = new Result("d: ピンとシャフトの接触 シャフト");
+      const result = new Result("d", "ピンとシャフトの接触 シャフト");
       result.archShearStrength =
         (this.pin.diameter * this.shaft.stress * this.shaft.radius ** 2) / 3;
       result.n = this.c.area * this.shaft.stress;
@@ -221,7 +222,7 @@ export default {
       return result;
     },
     e() {
-      const result = new Result("e: ピンとハウジングの接触 ピン");
+      const result = new Result("e", "ピンとハウジングの接触 ピン");
       result.area =
         (this.housing.diameter - this.shaft.diameter) * this.pin.diameter;
       result.archShearStrength =
@@ -234,7 +235,7 @@ export default {
       return result;
     },
     f() {
-      const result = new Result("f: ピンとハウジングの接触 ハウジング");
+      const result = new Result("f", "ピンとハウジングの接触 ハウジング");
       result.archShearStrength =
         (this.pin.diameter *
           this.housing.stress *
@@ -245,7 +246,7 @@ export default {
       return result;
     },
     g() {
-      const result = new Result("g: ピン断面のせん断");
+      const result = new Result("g", "ピン断面のせん断");
       result.area = Math.PI * this.pin.radius ** 2;
       result.n = 2 * result.area * this.pin.stress * this.allowableShearStress;
       result.nMm = result.n * this.shaft.radius;
