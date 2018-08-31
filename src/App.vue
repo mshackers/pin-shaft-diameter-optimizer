@@ -51,6 +51,7 @@ h1 {
 
 .hidden {
   width: 40px;
+  height: 40px;
   flex-grow: 0;
 }
 .input {
