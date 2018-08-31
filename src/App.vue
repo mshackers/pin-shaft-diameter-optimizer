@@ -27,10 +27,31 @@ h1 {
   width: 400px;
   max-width: 500px;
   padding: 10px;
+  position: relative;
 }
 
 .image img {
   width: 100%;
+}
+
+.image .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.hidden {
+  width: 40px;
+  flex-grow: 0;
 }
 .input {
   flex-shrink: 0;
@@ -52,8 +73,13 @@ label {
   <div id="app">
     <h1>ピンとシャフトの最適径計算</h1>
     <div class="input-container">
-      <div class="image">
-        <img src="./assets/images/image1.svg" />
+      <div class="image" :class="{ hidden: !imageIsVisible }">
+        <button type="button" class="close close-button" aria-label="Close" @click="imageIsVisible = !imageIsVisible">
+          <span aria-hidden="true"><i class="fas" :class="{ 'fa-window-close': imageIsVisible, 'fa-image': !imageIsVisible }"></i></span>
+        </button>
+        <transition name="fade">
+          <img v-if="imageIsVisible" src="./assets/images/image1.svg" />
+        </transition>
       </div>
       <div class="input">
         <input-table :pin="pin" :shaft="shaft" :housing="housing" @update="onUpdate" />
@@ -118,6 +144,7 @@ export default {
       shaft: new Component("シャフト", 8, 245),
       housing: new Component("ハウジング", 12, 245),
       allowableShearStress: 0.8,
+      imageIsVisible: true,
     };
   },
   computed: {
