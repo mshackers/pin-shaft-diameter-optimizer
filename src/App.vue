@@ -1,7 +1,7 @@
 <style scoped>
 #app {
   margin-top: 1rem;
-  max-width: 960px;
+  max-width: 1200px;
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -25,7 +25,7 @@ h1 {
   flex-shrink: 1;
   flex-grow: 1;
   width: 400px;
-  max-width: 400px;
+  max-width: 500px;
   padding: 10px;
 }
 
