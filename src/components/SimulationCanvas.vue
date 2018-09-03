@@ -42,8 +42,6 @@ export default {
       const width = 400;
       const height = 250;
       const length = 230;
-      const cx = width / 2;
-      const cy = height / 2;
       const shift = 50;
       this.ctx.clearRect(0, 0, width, height);
       this.ctx.translate(60.5, 100.5);
@@ -123,7 +121,7 @@ export default {
       } else {
         this.ctx.translate(originX + padding, originY - 5);
       }
-      this.ctx.rotate(Math.PI / 2 * 3);
+      this.ctx.rotate((Math.PI / 2) * 3);
       this.ctx.font = "18px monospace";
       this.ctx.fillText(text, 0, 0);
       this.ctx.restore();
