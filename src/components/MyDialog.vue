@@ -18,7 +18,7 @@
 .dialog-container {
   position: relative;
   max-width: 1200px;
-  width: 80%;
+  width: 90%;
   height: 100vh;
   margin: 0 auto;
   background-color: white;
@@ -31,6 +31,7 @@
 .dialog-body {
   height: calc(100vh - 4rem);
   overflow: auto;
+  padding: 1rem;
 }
 </style>
 <template>
