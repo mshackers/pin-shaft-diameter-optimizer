@@ -61,7 +61,9 @@ h1 {
   width: 100%;
 }
 
-.output {
+.canvas {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 label {
@@ -102,6 +104,9 @@ label {
         </div>
       </div>
     </div>
+    <div class="canvas">
+      <simulation-canvas :pin="pin" :shaft="shaft" :housing="housing" />
+    </div>
     <output-table class="output" :results="[a,b,c,d,e,f,g]" />
     <notation />
     <div class="detail-button-container">
@@ -118,6 +123,7 @@ label {
 import InputTable from "./components/InputTable.vue";
 import OutputTable from "./components/OutputTable.vue";
 import Notation from "./components/Notation.vue";
+import SimulationCanvas from "./components/SimulationCanvas.vue";
 import DetailedNotation from "./components/Notation.vue";
 import MyDialog from "./components/MyDialog.vue";
 
@@ -173,7 +179,14 @@ class Result {
 
 export default {
   name: "app",
-  components: { InputTable, OutputTable, Notation, DetailedNotation, MyDialog },
+  components: {
+    InputTable,
+    OutputTable,
+    Notation,
+    SimulationCanvas,
+    DetailedNotation,
+    MyDialog,
+  },
   data() {
     return {
       pin: new Component("ピン", "3", 245),
