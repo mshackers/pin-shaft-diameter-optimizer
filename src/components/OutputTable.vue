@@ -27,15 +27,23 @@ th {
 
 <script>
 import OutputTableRow from "./OutputTableRow.vue";
+
+function min(array) {
+  const first = Math.min(...array);
+  const array2 = array.filter(i => i != first);
+  const second = Math.min(...array2);
+  return { first, second };
+}
+
 export default {
   components: { OutputTableRow },
   props: ["results"],
   computed: {
     minN() {
-      return Math.min(...this.results.map(result => result.n));
+      return min(this.results.map(result => result.n));
     },
     minNMm() {
-      return Math.min(...this.results.map(result => result.nMm));
+      return min(this.results.map(result => result.nMm));
     },
   },
 };

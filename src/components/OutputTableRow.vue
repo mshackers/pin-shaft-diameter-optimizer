@@ -9,8 +9,8 @@ code {
 <template>
     <tr>
         <th><code>{{result.label}}</code> : {{result.name}}</th>
-        <td :class="{ 'table-danger': result.n === minN }">{{n}}</td>
-        <td :class="{ 'table-danger': result.nMm === minNMm }">{{nMm}}</td>
+        <td :class="{ 'table-danger': result.n === minN.first, 'table-warning': result.n === minN.second }">{{n}}</td>
+        <td :class="{ 'table-danger': result.nMm === minNMm.first, 'table-warning': result.nMm === minNMm.second }">{{nMm}}</td>
     </tr>
 </template>
 
