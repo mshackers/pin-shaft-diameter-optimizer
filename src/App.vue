@@ -25,7 +25,7 @@ h1 {
   flex-shrink: 1;
   flex-grow: 1;
   width: 400px;
-  max-width: 500px;
+  max-width: 650px;
   padding: 10px;
   position: relative;
 }
@@ -69,11 +69,24 @@ h1 {
 label {
   font-size: 90%;
 }
+
+.modal-open {
+  overflow: hidden;
+  position: fixed;
+}
+
+.detail-button-container {
+  max-width: 640px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
 </style>
 
 
 <template>
-  <div id="app">
+<div>
+  <div id="app" :class="{'modal-open': modalOpen}">
     <h1>ピンとシャフトの最適径計算</h1>
     <div class="input-container">
       <div class="image" :class="{ hidden: !imageIsVisible }">
@@ -96,7 +109,14 @@ label {
     </div>
     <output-table class="output" :results="[a,b,c,d,e,f,g]" />
     <notation />
+    <div class="detail-button-container">
+      <button class="btn btn-outline-info" @click="modalOpen=true">詳細はこちら</button>
+    </div>
   </div>
+  <my-dialog v-if="modalOpen" @close="modalOpen=false">
+    <detailed-notation />
+  </my-dialog>
+</div>
 </template>
 
 <script>
@@ -104,6 +124,8 @@ import InputTable from "./components/InputTable.vue";
 import OutputTable from "./components/OutputTable.vue";
 import Notation from "./components/Notation.vue";
 import SimulationCanvas from "./components/SimulationCanvas.vue";
+import DetailedNotation from "./components/Notation.vue";
+import MyDialog from "./components/MyDialog.vue";
 
 class Component {
   name;
@@ -157,7 +179,14 @@ class Result {
 
 export default {
   name: "app",
-  components: { InputTable, OutputTable, Notation, SimulationCanvas },
+  components: {
+    InputTable,
+    OutputTable,
+    Notation,
+    SimulationCanvas,
+    DetailedNotation,
+    MyDialog,
+  },
   data() {
     return {
       pin: new Component("ピン", "3", 245),
@@ -165,6 +194,7 @@ export default {
       housing: new Component("ハウジング", "12", 245),
       allowableShearStress: 0.8,
       imageIsVisible: true,
+      modalOpen: false,
     };
   },
   computed: {
@@ -174,7 +204,7 @@ export default {
       result.archH = radius - this.pin.radius;
       result.rad = 2 * Math.acos(1 - result.archH / radius);
       result.archArea =
-        result.rad * radius ** 2 / 2 -
+        (result.rad * radius ** 2) / 2 -
         (radius - result.archH) *
           Math.sqrt(result.archH * (2 * radius - result.archH));
       result.area = 2 * result.archArea;
@@ -193,7 +223,7 @@ export default {
             radius *
             Math.sqrt(radius ** 2 - this.pin.radius ** 2) +
           4 * Math.acos(this.pin.radius / radius) * radius ** 3) *
-        (this.shaft.stress * this.allowableShearStress / (12 * radius));
+        ((this.shaft.stress * this.allowableShearStress) / (12 * radius));
       result.n = result.area * this.shaft.stress;
       result.nMm = 4 * result.archShearStrength;
       return result;
@@ -204,7 +234,7 @@ export default {
       result.archH = radius - this.pin.radius;
       result.rad = 2 * Math.acos(1 - result.archH / radius);
       result.archArea =
-        result.rad * radius ** 2 / 2 -
+        (result.rad * radius ** 2) / 2 -
         (radius - result.archH) *
           Math.sqrt(result.archH * (2 * radius - result.archH));
       result.area = 2 * (result.archArea - this.a.archArea);
@@ -223,7 +253,7 @@ export default {
             radius *
             Math.sqrt(radius ** 2 - this.pin.radius ** 2) +
           4 * Math.acos(this.pin.radius / radius) * radius ** 3) *
-        (this.housing.stress * this.allowableShearStress / (12 * radius));
+        ((this.housing.stress * this.allowableShearStress) / (12 * radius));
       const x =
         (this.pin.radius ** 3 *
           Math.log(
@@ -245,8 +275,7 @@ export default {
           4 *
             Math.acos(this.pin.radius / this.shaft.radius) *
             this.shaft.radius ** 3) *
-        (this.housing.stress *
-          this.allowableShearStress /
+        ((this.housing.stress * this.allowableShearStress) /
           (12 * this.shaft.radius));
       result.n = result.area * this.housing.stress;
       result.nMm = (result.archShearStrength - x) * 4;
@@ -256,7 +285,7 @@ export default {
       const result = new Result("c", "ピンとシャフトの接触 ピン");
       result.area = this.pin.diameter * this.shaft.diameter;
       result.archShearStrength =
-        this.pin.diameter * this.pin.stress * this.shaft.radius ** 2 / 3;
+        (this.pin.diameter * this.pin.stress * this.shaft.radius ** 2) / 3;
       result.n = result.area * this.pin.stress;
       result.nMm = 2 * result.archShearStrength;
       return result;
@@ -264,7 +293,7 @@ export default {
     d() {
       const result = new Result("d", "ピンとシャフトの接触 シャフト");
       result.archShearStrength =
-        this.pin.diameter * this.shaft.stress * this.shaft.radius ** 2 / 3;
+        (this.pin.diameter * this.shaft.stress * this.shaft.radius ** 2) / 3;
       result.n = this.c.area * this.shaft.stress;
       result.nMm = 2 * result.archShearStrength;
       return result;
@@ -274,9 +303,9 @@ export default {
       result.area =
         (this.housing.diameter - this.shaft.diameter) * this.pin.diameter;
       result.archShearStrength =
-        this.pin.diameter *
-        this.pin.stress *
-        (this.housing.diameter ** 2 - this.shaft.diameter ** 2) /
+        (this.pin.diameter *
+          this.pin.stress *
+          (this.housing.diameter ** 2 - this.shaft.diameter ** 2)) /
         3;
       result.n = result.area * this.pin.stress;
       result.nMm = 2 * result.archShearStrength;
@@ -285,9 +314,9 @@ export default {
     f() {
       const result = new Result("f", "ピンとハウジングの接触 ハウジング");
       result.archShearStrength =
-        this.pin.diameter *
-        this.housing.stress *
-        (this.housing.diameter ** 2 - this.shaft.diameter ** 2) /
+        (this.pin.diameter *
+          this.housing.stress *
+          (this.housing.diameter ** 2 - this.shaft.diameter ** 2)) /
         3;
       result.n = this.e.area * this.housing.stress;
       result.nMm = 2 * result.archShearStrength;
