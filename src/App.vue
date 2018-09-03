@@ -79,7 +79,7 @@ label {
           <span aria-hidden="true"><i class="fas" :class="{ 'fa-window-close': imageIsVisible, 'fa-image': !imageIsVisible }"></i></span>
         </button>
         <transition name="fade">
-          <img v-if="imageIsVisible" src="./assets/images/image1.svg" />
+          <img v-if="imageIsVisible" src="./assets/images/pin_optimizer1.svg" />
         </transition>
       </div>
       <div class="input">
