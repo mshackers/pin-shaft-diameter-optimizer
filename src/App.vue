@@ -101,17 +101,30 @@ import Notation from "./components/Notation.vue";
 
 class Component {
   name;
-  diameter;
+  diameterString;
   stress;
 
-  constructor(name, diameter, stress) {
+  constructor(name, diameterString, stress) {
     this.name = name;
-    this.diameter = diameter;
+    this.diameterString = diameterString;
     this.stress = stress;
   }
 
   get radius() {
     return this.diameter / 2;
+  }
+
+  get diameter() {
+    if (this.diameterString.search("/") !== -1) {
+      const [left, right] = this.diameterString.split("/");
+      return parseFloat(left) / parseFloat(right);
+    }
+
+    return parseFloat(this.diameterString);
+  }
+
+  set stress(value) {
+    this.stress = parseFloat(value) || "";
   }
 
   validate() {
@@ -141,9 +154,9 @@ export default {
   components: { InputTable, OutputTable, Notation },
   data() {
     return {
-      pin: new Component("ピン", 3, 245),
-      shaft: new Component("シャフト", 8, 245),
-      housing: new Component("ハウジング", 12, 245),
+      pin: new Component("ピン", "3", 245),
+      shaft: new Component("シャフト", "8", 245),
+      housing: new Component("ハウジング", "12", 245),
       allowableShearStress: 0.8,
       imageIsVisible: true,
     };
