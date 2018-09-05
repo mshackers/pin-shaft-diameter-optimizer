@@ -61,9 +61,17 @@ h1 {
   width: 100%;
 }
 
+.output {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .canvas {
-  max-width: 400px;
-  margin: 0 auto;
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: 400px;
+  max-width: 650px;
 }
 
 label {
@@ -104,10 +112,14 @@ label {
         </div>
       </div>
     </div>
-    <div class="canvas">
-      <simulation-canvas :pin="pin" :shaft="shaft" :housing="housing" />
+    <div class="output">
+      <div class="canvas">
+        <simulation-canvas :pin="pin" :shaft="shaft" :housing="housing" :results="[a,b,c,d,e,f,g]" />
+      </div>
+      <div>
+        <output-table class="output-table" :results="[a,b,c,d,e,f,g]" />
+      </div>
     </div>
-    <output-table class="output" :results="[a,b,c,d,e,f,g]" />
     <notation />
     <div class="detail-button-container">
       <button class="btn btn-outline-info" @click="modalOpen=true">詳細はこちら</button>
@@ -174,6 +186,20 @@ class Result {
   constructor(label, name) {
     this.label = label;
     this.name = name;
+  }
+
+  static round(i) {
+    if (i < 0.1 || 100000 <= i) {
+      return i.toExponential(2);
+    }
+    return parseFloat(i.toPrecision(3));
+  }
+
+  get roundedN() {
+    return this.constructor.round(this.n);
+  }
+  get roundedNMm() {
+    return this.constructor.round(this.nMm);
   }
 }
 
