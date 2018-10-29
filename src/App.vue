@@ -117,7 +117,7 @@ label {
         <output-table class="output-table" :results="[a,b,c,d,e,f,g]" />
       </div>
     </div>
-    <notation />
+    <!-- <notation /> -->
     <div class="detail-button-container">
       <button class="btn btn-outline-info" @click="modalOpen=true">詳細はこちら</button>
     </div>
