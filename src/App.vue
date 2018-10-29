@@ -113,9 +113,6 @@ label {
       </div>
     </div>
     <div class="output">
-      <div class="canvas">
-        <simulation-canvas :pin="pin" :shaft="shaft" :housing="housing" :results="[a,b,c,d,e,f,g]" />
-      </div>
       <div>
         <output-table class="output-table" :results="[a,b,c,d,e,f,g]" />
       </div>
